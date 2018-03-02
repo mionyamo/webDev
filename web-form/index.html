@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        
+        <meta charset="utf-8">
+        <title>SheLeads Form</title>
+        
+        <style>
+            @font-face {
+                /*Not sure if it's possible to use Champagne and Limousines in this manner*/
+                font-family: 'CnL';
+                src: url("Champagne_Limousines.ttf");
+            }
+            body {
+                background-color: black;
+                color: white;
+                font-family: 'CnL', 'Century Gothic', 'Avant Garde', sans-serif;
+                font-size: 14px !important;
+                margin: 0;
+                padding: 0;
+            }
+            #form {
+                margin-left: 35%;
+            }
+            .button {
+                padding: 10px 20px;
+                text-align: center;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                cursor: pointer;
+                display: block;
+                margin-left: center;
+                background-color: deeppink;
+                color: white;
+                border: 2px solid deeppink;
+                border-radius: 4px;
+                font-family: 'CnL', 'Century Gothic', 'Avant Garde', sans-serif;
+            }
+            .button:hover {
+                background-color: transparent;
+                color: deeppink;
+            }
+            input[type=text]{
+                width: 50%;
+                padding: 12px 20px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            select {
+                width: 50%;
+                padding: 12px 16px;
+                position: relative;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                
+                font-size: 13px;
+                font-family: 'CnL', 'Century Gothic', 'Avant Garde', sans-serif;
+                outline: none;
+                display: block;
+                margin: 0;
+
+                background: #fff;
+                color: #757575;
+                line-height: normal;
+                line-height: inherit;
+            }
+            .logo {
+                padding: 12px 16px;
+                height: 30%;
+                width: 30%;
+            }
+            #top-bar {
+                padding-left: 275px;
+            }
+            #bot-bar {
+                text-align: center;
+                padding: 15px;
+                
+                position: static;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+            }
+            textarea {
+                width: 50%;
+                padding: 12px 20px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-family: 'CnL', 'Century Gothic', 'Avant Garde', sans-serif;
+            }
+            .asterisk {
+                color: red;
+            }
+            #bg {
+                min-width: 100%;
+                min-height: 100%;
+                margin: 0;
+                padding: 0;
+                position: fixed;
+                background-image: url('assets/gradient.png');
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                z-index: -999;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        
+        <div id="bg">&nbsp;</div>
+        
+        <div id="top-bar">
+            <a href="http://sheleadsgame.com/">
+                <img class="logo" src="assets/White Updated High Res Logo.png" alt="SheLeads logo">
+            </a>
+        </div>
+        
+        <br><br>
+        
+        <form id="form">
+            
+            Name <span class="asterisk">*</span>
+            <br>
+            <input type="text" name="name" class="name" placeholder="" required>
+            <br><br>
+            Email Address <span class="asterisk">*</span>
+            <br>
+            <input type="text" name="email" class="email" placeholder="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Enter your email correctly" required>
+            <br><br>
+            Phone Number
+            <br>
+            <input type="text" name="phone-number" class="phone-number" placeholder="" pattern="[0-9]{10}" title="Enter a 10 digit mobile number (no spaces).">
+            <br><br>
+            Type of Organization
+            <br>
+            <select name="dropdown" class="dropdown" onchange="dropdown.submit()">
+                <option value="" style="display:none">Please select...</option>
+                <option value="community-centre">Community Centre</option>
+                <option value="team-club">Team/Club</option>
+                <option value="high-school">High School</option>
+                <option value="elementary-school">Elementary School</option>
+            </select>
+            <br>
+            If your organization is not listed, please specify:
+            <br>
+            <input type="text" name="type-org" class="org-name" placeholder="">
+            <br><br>
+            Name of Organization
+            <br>
+            <input type="text" name="name-of-organization" class="name-of-organization" placeholder="">
+            <br><br>
+            Location
+            <br>
+            <input type="text" name="location" class="location" placeholder="">
+            <br><br>
+            Number of Girls
+            <br>
+            <input type="text" name="number-of-girls" class="number-of-girls" placeholder="" pattern="[0-9]{0,}" title="Numeric values only.">
+            <br><br>
+            Anything Else We Should Know?
+            <br>
+            <textarea name="comments" class="comments" placeholder=""></textarea>
+            <br><br>
+            <button class="button" type="submit">Connect</button>
+            
+        </form>
+        
+        <br><br><br>
+        
+        <div id="bot-bar">
+            2018 SheLeads
+        </div>
+        
+        <!--Load jquery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <!--POST form data to zapier on submit-->
+        <script>
+            $('#form').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                url:'https://hooks.zapier.com/hooks/catch/3010044/zj4orc/',
+                type:'post',
+                data:$('#form').serialize(),
+                success:function(){
+                  // Redirect to another success page
+                  window.location = "web-form/page2.html";
+                }
+            });
+        });
+        </script>
+        
+    </body>
+
+</html>
